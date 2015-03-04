@@ -6,6 +6,7 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+@SuppressWarnings("serial")
 public class RepositorioImpl extends UnicastRemoteObject implements Repositorio{
 
 	protected RepositorioImpl() throws RemoteException {

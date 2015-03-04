@@ -1,30 +1,13 @@
 package keepword;
 
-import java.awt.List;
-import java.net.MalformedURLException;
-import java.rmi.Naming;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
+import java.rmi.Remote;
 
-public class Servidor {	
-	public void armazenarPalavra(String palavra){
-		//definir em qual repositorio armazenar
-	}
+public interface Servidor extends Remote{
 	
-	public boolean verificarPalavra(String palavra){
-		return false;
-	}
+	//Armazena palavra em um dos repositorios
+	public void armazenarPalavra(String palavra);
 	
-	public static void main(String[] args) {
-		try {
-			Repositorio repo1 = (Repositorio) Naming.lookup("repo1");
-			Repositorio repo2 = (Repositorio) Naming.lookup("repo2");
-			Repositorio repo3 = (Repositorio) Naming.lookup("repo3");
-			
-			//add repositorios na lista
-			
-		} catch (MalformedURLException | RemoteException | NotBoundException e) {
-			e.printStackTrace();
-		}
-	}
+	//Verifica se os repositorios contem ou nao determinada palavra
+	public boolean verificarPalavra(String palavra);
+
 }
