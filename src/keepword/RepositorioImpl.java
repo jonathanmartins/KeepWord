@@ -5,22 +5,34 @@ import java.rmi.AlreadyBoundException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 
 @SuppressWarnings("serial")
 public class RepositorioImpl extends UnicastRemoteObject implements Repositorio{
+	
+	ArrayList<String> palavras; 
 
 	protected RepositorioImpl() throws RemoteException {
 		super();
+		palavras = new ArrayList<String>();
 	}
 
 	@Override
-	public void armazenarPalavra(String palavra) {
-		
+	public void armazenarPalavra(String palavra){
+		if(!verificarPalavra(palavra)){
+			palavras.add(palavra);
+		}
 	}
 
 	@Override
 	public boolean verificarPalavra(String palavra) {
-		return false;
+		boolean possuiPalavra = false;
+		for (String palavra1 : palavras) {
+			if(palavra1 == palavra){
+				possuiPalavra = true;
+			}
+		}
+		return possuiPalavra;
 	}
 
 	public static void main(String[] args) {
