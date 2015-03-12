@@ -32,6 +32,7 @@ public class RepositorioImpl extends UnicastRemoteObject implements Repositorio 
 	public boolean armazenarPalavra(String palavra) throws RemoteException {
 		if (!verificarPalavra(palavra)) {
 			palavras.add(palavra);
+			System.out.println(palavra + " foi adicionada");
 			return true;
 		}
 		System.out.println(getNome() + " ja armazenou esta palavra");

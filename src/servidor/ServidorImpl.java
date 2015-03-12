@@ -21,19 +21,25 @@ public class ServidorImpl extends UnicastRemoteObject implements Servidor{
 
 	//envia palavra pro servidor que tiver menor carga atualmente
 	public String armazenarPalavra(String palavra) throws RemoteException{
-		int repo[] = new int[repositorios.size()-1];
-		for (int x=0; x<repositorios.size()-1; x++){
-			repo[x]=repositorios.get(x).verificarCapacidade();
+		
+		int capacidade[] = new int[repositorios.size()];
+		for (int repo = 0; repo < repositorios.size(); repo++){
+			capacidade[repo] = repositorios.get(repo).verificarCapacidade();
 		}
-		int y=Integer.MAX_VALUE;
-		for (int x=0; x<repo.length; x++){
-			if (repo[x]<y)
-				y=x;
+		
+		int maisVazio = Integer.MAX_VALUE;
+		int escolhido = 0;
+		
+		for (int x=0; x < capacidade.length; x++){
+			if (capacidade[x] < maisVazio){
+				maisVazio = capacidade[x];
+				escolhido = x;
+			}
 		}
 		
 		String resposta;
-		if(repositorios.get(y).armazenarPalavra(palavra)){
-			resposta = "Palavra armazenada no repositorio com menor carga: "+ repositorios.get(y).getNome();
+		if(repositorios.get(escolhido).armazenarPalavra(palavra)){
+			resposta = "Palavra armazenada no repositorio com menor carga: "+ repositorios.get(escolhido).getNome();
 			System.out.println(resposta);
 		}else{
 			resposta = "Essa palavra já foi armazenada!";
