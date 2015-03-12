@@ -24,12 +24,12 @@ public class Cliente {
 				if(opcao.equalsIgnoreCase("1")){
 					
 					String novaPalavra = JOptionPane.showInputDialog("Digite a palavra que deseja ADICIONAR");  
-					servidor.armazenarPalavra(novaPalavra);
+					System.out.println(servidor.armazenarPalavra(novaPalavra));
 				
 				}else if(opcao.equalsIgnoreCase("2")){
 				
 					String consulta = JOptionPane.showInputDialog("Digite a palavra que deseja CONSULTAR");  
-					servidor.verificarPalavra(consulta);
+					System.out.println(servidor.verificarPalavra(consulta));
 				
 				}else if(opcao.equalsIgnoreCase("exit")){
 					
@@ -42,13 +42,6 @@ public class Cliente {
 				}
 				
 			}
-			
-			//System.out.println("client: armazenar 'rmi': " + servidor.armazenarPalavra("rmi"));
-			//System.out.println("client: armazenar 'programacao distribuida': " + servidor.armazenarPalavra("programacao distribuida"));
-			//System.out.println("client: armazenar 'java': " + servidor.armazenarPalavra("java"));
-			
-			//System.out.println("client: buscar 'aula': " + servidor.verificarPalavra("aula"));
-			//System.out.println("client: buscar 'java': " + servidor.verificarPalavra("java"));
 			
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
 			e.printStackTrace();

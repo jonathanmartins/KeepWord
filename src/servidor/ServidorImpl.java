@@ -20,9 +20,9 @@ public class ServidorImpl extends UnicastRemoteObject implements Servidor{
 	}
 
 	//envia palavra pro servidor que tiver menor carga atualmente
-	public boolean armazenarPalavra(String palavra) throws RemoteException{
-		int repo[] = new int[repositorios.size()];
-		for (int x=0; x<repositorios.size(); x++){
+	public String armazenarPalavra(String palavra) throws RemoteException{
+		int repo[] = new int[repositorios.size()-1];
+		for (int x=0; x<repositorios.size()-1; x++){
 			repo[x]=repositorios.get(x).verificarCapacidade();
 		}
 		int y=Integer.MAX_VALUE;
@@ -30,43 +30,58 @@ public class ServidorImpl extends UnicastRemoteObject implements Servidor{
 			if (repo[x]<y)
 				y=x;
 		}
-		System.out.println("menor carga no repositorio " + y);
-		return repositorios.get(y).armazenarPalavra(palavra);
+		
+		String resposta;
+		if(repositorios.get(y).armazenarPalavra(palavra)){
+			resposta = "Palavra armazenada no repositorio com menor carga: "+ repositorios.get(y).getNome();
+			System.out.println(resposta);
+		}else{
+			resposta = "Essa palavra já foi armazenada!";
+		}
+		
+		return resposta;
 	}
 	
 	public String verificarPalavra(String palavra) throws RemoteException{
-		//Talvez modificar esse metodo pra retornar uma string pro cliente, mostrando quais repositorios tem a palavra
+		String resposta = "";
 		for (int x=0; x<repositorios.size(); x++) {
 			if(repositorios.get(x).verificarPalavra(palavra)){
-				System.out.println("servidor: Repositorio possui palavra");
-				return repositorios.get(x).getNome();
+				System.out.println("Repositorio "+repositorios.get(x).getNome()+" possui a palavra "+palavra);
+				resposta += "Palavra encontrada no repositorio: "+repositorios.get(x).getNome()+"\n";
 			}
 		}
-		return "";
+		
+		if(resposta.equals("")){
+			resposta = "Essa palavra não foi encontrada";
+		}
+		
+		return resposta;
 	}
 	
 	public static void main(String[] args) throws RemoteException{
-			ServidorImpl servidor = new ServidorImpl();
-			//Try-Catch específico para o bind, para evitar de o servidor parar de funcionar por causa disso
+		
+		ServidorImpl servidor = new ServidorImpl();
+		
+		//Try-Catch específico para o bind, para evitar de o servidor parar de funcionar por causa disso
 		try {
 			Naming.rebind("servidor", servidor);
 		} catch (MalformedURLException e) {
 			System.out.println("servidor: MalformedURLException");
 		}
 		
-		/*	
-		 * pesquisando repositorios online
-		 */
 		//TODO Fazer essa busca acontecer de tempos em tempos, para permitir que os repos sejam criados em qualquer ordem
 		try {
 			Repositorio repo1 = (Repositorio) Naming.lookup("repo1");
-			System.out.println("lookup repo1 ok.");
-//			Repositorio repo2 = (Repositorio) Naming.lookup("repo2");
-//			Repositorio repo3 = (Repositorio) Naming.lookup("repo3");
+			System.out.println("Referencia repo1 recuperada");
+			Repositorio repo2 = (Repositorio) Naming.lookup("repo2");
+			System.out.println("Referencia repo2 recuperada");
+			Repositorio repo3 = (Repositorio) Naming.lookup("repo3");
+			System.out.println("Referencia repo3 recuperada");
+
 			
 			servidor.repositorios.add(repo1);
-//			servidor.repositorios.add(repo2);
-//			servidor.repositorios.add(repo3);
+			servidor.repositorios.add(repo2);
+			servidor.repositorios.add(repo3);
 			
 		} catch (MalformedURLException | NotBoundException e) {
 			System.out.println("servidor: Erro durante busca por repositorio");

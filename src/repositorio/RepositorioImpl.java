@@ -34,7 +34,7 @@ public class RepositorioImpl extends UnicastRemoteObject implements Repositorio 
 			palavras.add(palavra);
 			return true;
 		}
-		System.out.println(getNome() + ": palavra ja existente");
+		System.out.println(getNome() + " ja armazenou esta palavra");
 		return false;
 	}
 
@@ -45,7 +45,7 @@ public class RepositorioImpl extends UnicastRemoteObject implements Repositorio 
 		Iterator<String> iterador = palavras.iterator();
 		while (iterador.hasNext()) {
 			if (iterador.next().equals(palavra)) {
-				System.out.println(getNome() + ": palavra encontrada");
+				System.out.println(getNome() + " encontrou a palavra: "+ palavra);
 				possuiPalavra = true;
 			}
 		}
@@ -60,7 +60,7 @@ public class RepositorioImpl extends UnicastRemoteObject implements Repositorio 
 	// registra o repositorio no RMI Registry
 	public boolean registrar(RepositorioImpl repo) throws RemoteException,
 			MalformedURLException, AlreadyBoundException {
-		Naming.bind(repo.getNome(), repo);
+		Naming.rebind(repo.getNome(), repo);
 		System.out.println(repo.getNome() + " registrado no RMI Registry");
 		return true;
 	}
