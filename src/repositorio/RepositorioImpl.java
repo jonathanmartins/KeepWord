@@ -27,15 +27,14 @@ public class RepositorioImpl extends UnicastRemoteObject implements Repositorio 
 		palavras = new ArrayList<String>();
 	}
 
-	// tenta armazenar dada palavra ao repositorio, caso ela nao ja exista no
-	// mesmo.
+	// tenta armazenar dada palavra ao repositorio, caso ela nao ja exista no mesmo.
 	@Override
 	public boolean armazenarPalavra(String palavra) throws RemoteException {
 		if (!verificarPalavra(palavra)) {
 			palavras.add(palavra);
 			return true;
 		}
-		System.out.println(getNome() + ": Palavra ja existente");
+		System.out.println(getNome() + ": palavra ja existente");
 		return false;
 	}
 
