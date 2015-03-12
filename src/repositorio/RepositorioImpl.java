@@ -61,7 +61,7 @@ public class RepositorioImpl extends UnicastRemoteObject implements Repositorio 
 	// registra o repositorio no RMI Registry
 	public boolean registrar(RepositorioImpl repo) throws RemoteException,
 			MalformedURLException, AlreadyBoundException {
-		Naming.bind(repo.getNome(), repo);
+		Naming.rebind(repo.getNome(), repo);
 		System.out.println(repo.getNome() + " registrado no RMI Registry");
 		return true;
 	}

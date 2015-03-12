@@ -1,7 +1,6 @@
 package servidor;
 
 import java.net.MalformedURLException;
-import java.rmi.AlreadyBoundException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -50,9 +49,9 @@ public class ServidorImpl extends UnicastRemoteObject implements Servidor{
 			ServidorImpl servidor = new ServidorImpl();
 			//Try-Catch específico para o bind, para evitar de o servidor parar de funcionar por causa disso
 		try {
-			Naming.bind("servidor", servidor);
-		} catch (MalformedURLException | AlreadyBoundException e) {
-			System.out.println("servidor: AlreadyBoundException");
+			Naming.rebind("servidor", servidor);
+		} catch (MalformedURLException e) {
+			System.out.println("servidor: MalformedURLException");
 		}
 		
 		/*	

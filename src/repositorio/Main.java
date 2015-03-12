@@ -37,8 +37,7 @@ public class Main {
 
 				//erros remotos, como o registry offline
 			} catch (RemoteException e1) {
-				System.out
-						.println("Remote Exception na instanciacao do repositorio");
+				System.out.println("Remote Exception na instanciacao do repositorio");
 				System.out.println("Nova tentativa em 10 segundos.");
 				Thread.sleep(10000);
 			}
