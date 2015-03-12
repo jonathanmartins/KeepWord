@@ -9,6 +9,6 @@ public interface Servidor extends Remote{
 	public boolean armazenarPalavra(String palavra) throws RemoteException;
 	
 	//Verifica se os repositorios contem ou nao determinada palavra
-	public boolean verificarPalavra(String palavra) throws RemoteException;
+	public String verificarPalavra(String palavra) throws RemoteException;
 
 }

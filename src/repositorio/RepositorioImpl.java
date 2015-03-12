@@ -14,11 +14,11 @@ public class RepositorioImpl extends UnicastRemoteObject implements Repositorio 
 	ArrayList<String> palavras;
 	String nome;
 
-	public String getNome() {
+	public String getNome() throws RemoteException{
 		return nome;
 	}
 
-	public void setNome(String nome) {
+	public void setNome(String nome) throws RemoteException{
 		this.nome = nome;
 	}
 
@@ -60,7 +60,7 @@ public class RepositorioImpl extends UnicastRemoteObject implements Repositorio 
 	// registra o repositorio no RMI Registry
 	public boolean registrar(RepositorioImpl repo) throws RemoteException,
 			MalformedURLException, AlreadyBoundException {
-		Naming.rebind(repo.getNome(), repo);
+		Naming.bind(repo.getNome(), repo);
 		System.out.println(repo.getNome() + " registrado no RMI Registry");
 		return true;
 	}
