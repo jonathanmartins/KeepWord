@@ -14,4 +14,8 @@ public interface Repositorio extends Remote{
 	//Retorna o armazenamento atual do repositorio
 	public int verificarCapacidade() throws RemoteException;
 	
+	public String getNome() throws RemoteException;
+	
+	public void setNome(String nome) throws RemoteException;
+	
 }

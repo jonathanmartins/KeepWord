@@ -34,15 +34,15 @@ public class ServidorImpl extends UnicastRemoteObject implements Servidor{
 		return repositorios.get(y).armazenarPalavra(palavra);
 	}
 	
-	public boolean verificarPalavra(String palavra) throws RemoteException{
+	public String verificarPalavra(String palavra) throws RemoteException{
 		//Talvez modificar esse metodo pra retornar uma string pro cliente, mostrando quais repositorios tem a palavra
 		for (int x=0; x<repositorios.size(); x++) {
 			if(repositorios.get(x).verificarPalavra(palavra)){
 				System.out.println("servidor: Repositorio possui palavra");
-				return true;
+				return repositorios.get(x).getNome();
 			}
 		}
-		return false;
+		return "";
 	}
 	
 	public static void main(String[] args) throws RemoteException{
